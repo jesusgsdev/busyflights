@@ -88,7 +88,7 @@ The response provided by ToughJet contains a list of flights with the following 
 |arrivalAirportName| 3 letter IATA code(eg. LHR, AMS)
 |departureDay| Day of the Month
 |departureMonth| Month as an Integer(1-12)
-|departureYea|r 4 digit Year
+|departureYear| 4 digit Year
 |returnDay| Day of the Month
 |returnMonth| Month as an Integer(1-12)
 |returnYear| 4 digit Year
