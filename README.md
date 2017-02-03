@@ -37,6 +37,7 @@ purposes. This should preferably be done using AspectJ.
 #### CrazyAir API
 ##### Request
 The request expected:
+
 |Name|Description|
 |---|---|
 |origin| 3 letter IATA code(eg. LHR, AMS)
@@ -47,6 +48,7 @@ The request expected:
 
 ##### Response
 The response provided by CrazyAir contains a list of flights with the following attributes:
+
 |Name|Description|
 |---|---|
 |airline| Name of the airline
@@ -60,6 +62,7 @@ The response provided by CrazyAir contains a list of flights with the following 
 #### ToughJet API
 ##### Request
 The request expected:
+
 |Name|Description|
 |---|---|
 |from| 3 letter IATA code(eg. LHR, AMS)
@@ -74,6 +77,7 @@ The request expected:
 
 ##### Response
 The response provided by ToughJet contains a list of flights with the following attributes:
+
 |Name|Description|
 |---|---|
 |carrier| Name of the Airline
