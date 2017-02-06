@@ -121,4 +121,29 @@ public class CrazyAirRequestDTO implements Serializable{
         }
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CrazyAirRequestDTO that = (CrazyAirRequestDTO) o;
+
+        if (origin != null ? !origin.equals(that.origin) : that.origin != null) return false;
+        if (destination != null ? !destination.equals(that.destination) : that.destination != null) return false;
+        if (departureDate != null ? !departureDate.equals(that.departureDate) : that.departureDate != null)
+            return false;
+        if (returnDate != null ? !returnDate.equals(that.returnDate) : that.returnDate != null) return false;
+        return numberOfPassengers != null ? numberOfPassengers.equals(that.numberOfPassengers) : that.numberOfPassengers == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = origin != null ? origin.hashCode() : 0;
+        result = 31 * result + (destination != null ? destination.hashCode() : 0);
+        result = 31 * result + (departureDate != null ? departureDate.hashCode() : 0);
+        result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
+        result = 31 * result + (numberOfPassengers != null ? numberOfPassengers.hashCode() : 0);
+        return result;
+    }
 }

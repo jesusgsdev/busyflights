@@ -179,4 +179,31 @@ public class ToughJetResponseDTO extends ToughJetCommonDTO implements Serializab
             return this;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ToughJetResponseDTO that = (ToughJetResponseDTO) o;
+
+        if (carrier != null ? !carrier.equals(that.carrier) : that.carrier != null) return false;
+        if (basePrice != null ? !basePrice.equals(that.basePrice) : that.basePrice != null) return false;
+        if (tax != null ? !tax.equals(that.tax) : that.tax != null) return false;
+        if (discount != null ? !discount.equals(that.discount) : that.discount != null) return false;
+        if (departureAirportName != null ? !departureAirportName.equals(that.departureAirportName) : that.departureAirportName != null)
+            return false;
+        return arrivalAirportName != null ? arrivalAirportName.equals(that.arrivalAirportName) : that.arrivalAirportName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = carrier != null ? carrier.hashCode() : 0;
+        result = 31 * result + (basePrice != null ? basePrice.hashCode() : 0);
+        result = 31 * result + (tax != null ? tax.hashCode() : 0);
+        result = 31 * result + (discount != null ? discount.hashCode() : 0);
+        result = 31 * result + (departureAirportName != null ? departureAirportName.hashCode() : 0);
+        result = 31 * result + (arrivalAirportName != null ? arrivalAirportName.hashCode() : 0);
+        return result;
+    }
 }

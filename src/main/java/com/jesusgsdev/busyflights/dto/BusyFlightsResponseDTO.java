@@ -105,4 +105,35 @@ public class BusyFlightsResponseDTO implements Serializable {
                 ", arrivalDate='" + arrivalDate + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BusyFlightsResponseDTO that = (BusyFlightsResponseDTO) o;
+
+        if (airline != null ? !airline.equals(that.airline) : that.airline != null) return false;
+        if (supplier != null ? !supplier.equals(that.supplier) : that.supplier != null) return false;
+        if (fare != null ? !fare.equals(that.fare) : that.fare != null) return false;
+        if (departureAirportCode != null ? !departureAirportCode.equals(that.departureAirportCode) : that.departureAirportCode != null)
+            return false;
+        if (destinationAirportCode != null ? !destinationAirportCode.equals(that.destinationAirportCode) : that.destinationAirportCode != null)
+            return false;
+        if (departureDate != null ? !departureDate.equals(that.departureDate) : that.departureDate != null)
+            return false;
+        return arrivalDate != null ? arrivalDate.equals(that.arrivalDate) : that.arrivalDate == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = airline != null ? airline.hashCode() : 0;
+        result = 31 * result + (supplier != null ? supplier.hashCode() : 0);
+        result = 31 * result + (fare != null ? fare.hashCode() : 0);
+        result = 31 * result + (departureAirportCode != null ? departureAirportCode.hashCode() : 0);
+        result = 31 * result + (destinationAirportCode != null ? destinationAirportCode.hashCode() : 0);
+        result = 31 * result + (departureDate != null ? departureDate.hashCode() : 0);
+        result = 31 * result + (arrivalDate != null ? arrivalDate.hashCode() : 0);
+        return result;
+    }
 }
