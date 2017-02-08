@@ -1,6 +1,6 @@
 package com.jesusgsdev.busyflights.services;
 
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.exceptions.ValidationException;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusyFlightsServiceValidator {
 
-    public void validateBusyFlightInput(BusyFlightsSearchDTO busyFlightsSearchDTO){
-       validateInput(busyFlightsSearchDTO.getOrigin(), busyFlightsSearchDTO.getDestination());
+    public void validateBusyFlightInput(BusyFlightsRequestDTO busyFlightsRequestDTO){
+       validateInput(busyFlightsRequestDTO.getOrigin(), busyFlightsRequestDTO.getDestination());
     }
 
     private void validateInput(String origin, String destination){

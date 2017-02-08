@@ -2,9 +2,11 @@ package com.jesusgsdev.busyflights.services;
 
 import com.jesusgsdev.suppliers.Supplier;
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.busyflights.services.suppliers.BusyFlightsCrazyAirCallerService;
 import com.jesusgsdev.busyflights.services.suppliers.BusyFlightsToughJetCallerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import java.util.concurrent.Future;
  * Created by jesgarsal on 02/02/17.
  */
 @Service
-public class SearchFacade {
+public class SearchSupplierService {
 
     @Autowired
     BusyFlightsCrazyAirCallerService crazyAirCallerService;
@@ -26,19 +28,21 @@ public class SearchFacade {
     @Autowired
     BusyFlightsToughJetCallerService toughJetCallerService;
 
-    public Future<List<BusyFlightsResponseDTO>> search(BusyFlightsSearchDTO busyFlightsSearchDTO, String supplier){
-        Future<List<BusyFlightsResponseDTO>> results = new AsyncResult<>(Collections.emptyList());;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SearchSupplierService.class);
+
+    public Future<List<BusyFlightsResponseDTO>> search(BusyFlightsRequestDTO busyFlightsRequestDTO, String supplier){
+        Future<List<BusyFlightsResponseDTO>> results = new AsyncResult<>(Collections.emptyList());
         try {
             switch (supplier){
                 case Supplier.CRAZY_AIR:
-                    results = crazyAirCallerService.search(busyFlightsSearchDTO);
+                    results = crazyAirCallerService.search(busyFlightsRequestDTO);
                     break;
                 case Supplier.TOUGH_JET:
-                    results = toughJetCallerService.search(busyFlightsSearchDTO);
+                    results = toughJetCallerService.search(busyFlightsRequestDTO);
                     break;
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(String.format("Error during searching with supplier %s", supplier), e);
         }
         return results;
     }

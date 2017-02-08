@@ -1,13 +1,13 @@
-package jesusgsdev.suppliers.crazyAir;
+package com.jesusgsdev.suppliers.toughjet.services;
 
 import com.jesusgsdev.Application;
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.busyflights.services.BusyFlightsConverterService;
-import com.jesusgsdev.busyflights.services.suppliers.BusyFlightsCrazyAirCallerService;
+import com.jesusgsdev.busyflights.services.suppliers.BusyFlightsToughJetCallerService;
 import com.jesusgsdev.helpers.DateHelpers;
-import com.jesusgsdev.suppliers.crazyair.dto.CrazyAirRequestDTO;
-import com.jesusgsdev.suppliers.crazyair.dto.CrazyAirResponseDTO;
+import com.jesusgsdev.suppliers.toughjet.dto.ToughJetRequestDTO;
+import com.jesusgsdev.suppliers.toughjet.dto.ToughJetResponseDTO;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,10 +33,10 @@ import java.util.stream.Stream;
 @ComponentScan
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CrazyAirSearchServiceTest {
+public class ToughJetServiceTest {
 
     @Autowired
-    BusyFlightsCrazyAirCallerService busyFlightsCrazyAirCallerService;
+    BusyFlightsToughJetCallerService busyFlightToughJetCallerService;
 
     @LocalServerPort
     private int port;
@@ -49,24 +49,23 @@ public class CrazyAirSearchServiceTest {
     @Autowired
     private BusyFlightsConverterService busyFlightsConverterService;
 
-
     @Before
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
     }
 
     @Test
-    public void crazyAirSearch() throws InterruptedException, ExecutionException {
-        BusyFlightsSearchDTO busyFlightsSearchDTO = new BusyFlightsSearchDTO();
-        busyFlightsSearchDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
-        busyFlightsSearchDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
-        busyFlightsSearchDTO.setOrigin("STN");
-        busyFlightsSearchDTO.setDestination("SVQ");
-        busyFlightsSearchDTO.setNumberOfPassengers(1);
+    public void toughJetSearch() throws InterruptedException, ExecutionException {
+        BusyFlightsRequestDTO busyFlightsRequestDTO = new BusyFlightsRequestDTO();
+        busyFlightsRequestDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
+        busyFlightsRequestDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
+        busyFlightsRequestDTO.setOrigin("STN");
+        busyFlightsRequestDTO.setDestination("SVQ");
+        busyFlightsRequestDTO.setNumberOfPassengers(1);
 
-        CrazyAirRequestDTO crazyAirRequestDTO = busyFlightsConverterService.getCrazyAirRequestDTO(busyFlightsSearchDTO);
+        ToughJetRequestDTO toughJetRequestDTO = busyFlightsConverterService.getToughJetRequestDTO(busyFlightsRequestDTO);
 
-        CrazyAirResponseDTO[] crazyAirResponse = template.postForObject(base + "crazy-air/search", crazyAirRequestDTO, CrazyAirResponseDTO[].class);
+        ToughJetResponseDTO[] crazyAirResponse = template.postForObject(base + "tough-jet/search", toughJetRequestDTO, ToughJetResponseDTO[].class);
 
         List<BusyFlightsResponseDTO> busyFlightsResponseDTO = Stream.of(crazyAirResponse)
                 .map(r -> busyFlightsConverterService.getBusyFlightResponseDTO(r))
@@ -78,15 +77,15 @@ public class CrazyAirSearchServiceTest {
 
     @Test
     @Ignore
-    public void crazyAirSearch2() throws InterruptedException, ExecutionException {
-        BusyFlightsSearchDTO busyFlightsSearchDTO = new BusyFlightsSearchDTO();
-        busyFlightsSearchDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
-        busyFlightsSearchDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
-        busyFlightsSearchDTO.setOrigin("STN");
-        busyFlightsSearchDTO.setDestination("SVQ");
-        busyFlightsSearchDTO.setNumberOfPassengers(1);
+    public void toughJetSearch2() throws InterruptedException, ExecutionException {
+        BusyFlightsRequestDTO busyFlightsRequestDTO = new BusyFlightsRequestDTO();
+        busyFlightsRequestDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
+        busyFlightsRequestDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
+        busyFlightsRequestDTO.setOrigin("STN");
+        busyFlightsRequestDTO.setDestination("SVQ");
+        busyFlightsRequestDTO.setNumberOfPassengers(1);
 
-        Future<List<BusyFlightsResponseDTO>> futureResults = busyFlightsCrazyAirCallerService.search(busyFlightsSearchDTO);
+        Future<List<BusyFlightsResponseDTO>> futureResults = busyFlightToughJetCallerService.search(busyFlightsRequestDTO);
         while (!futureResults.isDone()) {
             Thread.sleep(10); //10-millisecond pause between each check
         }

@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Created by jesgarsal on 29/01/17.
@@ -163,31 +164,19 @@ public class CrazyAirResponseDTO implements Serializable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof CrazyAirResponseDTO)) return false;
         CrazyAirResponseDTO that = (CrazyAirResponseDTO) o;
-
-        if (airline != null ? !airline.equals(that.airline) : that.airline != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (cabinclass != null ? !cabinclass.equals(that.cabinclass) : that.cabinclass != null) return false;
-        if (departureAirportCode != null ? !departureAirportCode.equals(that.departureAirportCode) : that.departureAirportCode != null)
-            return false;
-        if (destinationAirportCode != null ? !destinationAirportCode.equals(that.destinationAirportCode) : that.destinationAirportCode != null)
-            return false;
-        if (departureDate != null ? !departureDate.equals(that.departureDate) : that.departureDate != null)
-            return false;
-        return arrivalDate != null ? arrivalDate.equals(that.arrivalDate) : that.arrivalDate == null;
+        return Objects.equals(airline, that.airline) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(cabinclass, that.cabinclass) &&
+                Objects.equals(departureAirportCode, that.departureAirportCode) &&
+                Objects.equals(destinationAirportCode, that.destinationAirportCode) &&
+                Objects.equals(departureDate, that.departureDate) &&
+                Objects.equals(arrivalDate, that.arrivalDate);
     }
 
     @Override
     public int hashCode() {
-        int result = airline != null ? airline.hashCode() : 0;
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (cabinclass != null ? cabinclass.hashCode() : 0);
-        result = 31 * result + (departureAirportCode != null ? departureAirportCode.hashCode() : 0);
-        result = 31 * result + (destinationAirportCode != null ? destinationAirportCode.hashCode() : 0);
-        result = 31 * result + (departureDate != null ? departureDate.hashCode() : 0);
-        result = 31 * result + (arrivalDate != null ? arrivalDate.hashCode() : 0);
-        return result;
+        return Objects.hash(airline, price, cabinclass, departureAirportCode, destinationAirportCode, departureDate, arrivalDate);
     }
 }

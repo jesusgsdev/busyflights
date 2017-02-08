@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by jesgarsal on 29/01/17.
@@ -39,7 +40,6 @@ public class ToughJetRequestDTO extends ToughJetCommonDTO implements Serializabl
         this.to = to;
     }
 
-
     public Integer getNumberOfAdults() {
         return numberOfAdults;
     }
@@ -50,22 +50,17 @@ public class ToughJetRequestDTO extends ToughJetCommonDTO implements Serializabl
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof ToughJetRequestDTO)) return false;
+        if (!super.equals(o)) return false;
         ToughJetRequestDTO that = (ToughJetRequestDTO) o;
-
-        if (from != null ? !from.equals(that.from) : that.from != null) return false;
-        if (to != null ? !to.equals(that.to) : that.to != null) return false;
-        return numberOfAdults != null ? numberOfAdults.equals(that.numberOfAdults) : that.numberOfAdults == null;
+        return Objects.equals(from, that.from) &&
+                Objects.equals(to, that.to) &&
+                Objects.equals(numberOfAdults, that.numberOfAdults);
     }
 
     @Override
     public int hashCode() {
-        int result = from != null ? from.hashCode() : 0;
-        result = 31 * result + (to != null ? to.hashCode() : 0);
-        result = 31 * result + (numberOfAdults != null ? numberOfAdults.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), from, to, numberOfAdults);
     }
 }

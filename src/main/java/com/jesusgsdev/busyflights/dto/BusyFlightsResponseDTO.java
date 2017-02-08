@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by jesgarsal on 29/01/17.
@@ -35,6 +36,20 @@ public class BusyFlightsResponseDTO implements Serializable {
     private String arrivalDate;
 
     public BusyFlightsResponseDTO() {
+    }
+
+    private BusyFlightsResponseDTO(Builder builder) {
+        this.airline = builder.airline;
+        this.supplier = builder.supplier;
+        this.fare = builder.fare;
+        this.departureAirportCode = builder.departureAirportCode;
+        this.destinationAirportCode = builder.destinationAirportCode;
+        this.departureDate = builder.departureDate;
+        this.arrivalDate = builder.arrivalDate;
+    }
+
+    public static Builder newBusyFlightsResponseDTO() {
+        return new Builder();
     }
 
     public String getAirline() {
@@ -109,31 +124,72 @@ public class BusyFlightsResponseDTO implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof BusyFlightsResponseDTO)) return false;
         BusyFlightsResponseDTO that = (BusyFlightsResponseDTO) o;
-
-        if (airline != null ? !airline.equals(that.airline) : that.airline != null) return false;
-        if (supplier != null ? !supplier.equals(that.supplier) : that.supplier != null) return false;
-        if (fare != null ? !fare.equals(that.fare) : that.fare != null) return false;
-        if (departureAirportCode != null ? !departureAirportCode.equals(that.departureAirportCode) : that.departureAirportCode != null)
-            return false;
-        if (destinationAirportCode != null ? !destinationAirportCode.equals(that.destinationAirportCode) : that.destinationAirportCode != null)
-            return false;
-        if (departureDate != null ? !departureDate.equals(that.departureDate) : that.departureDate != null)
-            return false;
-        return arrivalDate != null ? arrivalDate.equals(that.arrivalDate) : that.arrivalDate == null;
+        return Objects.equals(airline, that.airline) &&
+                Objects.equals(supplier, that.supplier) &&
+                Objects.equals(fare, that.fare) &&
+                Objects.equals(departureAirportCode, that.departureAirportCode) &&
+                Objects.equals(destinationAirportCode, that.destinationAirportCode) &&
+                Objects.equals(departureDate, that.departureDate) &&
+                Objects.equals(arrivalDate, that.arrivalDate);
     }
 
     @Override
     public int hashCode() {
-        int result = airline != null ? airline.hashCode() : 0;
-        result = 31 * result + (supplier != null ? supplier.hashCode() : 0);
-        result = 31 * result + (fare != null ? fare.hashCode() : 0);
-        result = 31 * result + (departureAirportCode != null ? departureAirportCode.hashCode() : 0);
-        result = 31 * result + (destinationAirportCode != null ? destinationAirportCode.hashCode() : 0);
-        result = 31 * result + (departureDate != null ? departureDate.hashCode() : 0);
-        result = 31 * result + (arrivalDate != null ? arrivalDate.hashCode() : 0);
-        return result;
+        return Objects.hash(airline, supplier, fare, departureAirportCode, destinationAirportCode, departureDate, arrivalDate);
+    }
+
+
+    public static final class Builder {
+        private String airline;
+        private String supplier;
+        private Double fare;
+        private String departureAirportCode;
+        private String destinationAirportCode;
+        private String departureDate;
+        private String arrivalDate;
+
+        private Builder() {
+        }
+
+        public BusyFlightsResponseDTO build() {
+            return new BusyFlightsResponseDTO(this);
+        }
+
+        public Builder airline(String airline) {
+            this.airline = airline;
+            return this;
+        }
+
+        public Builder supplier(String supplier) {
+            this.supplier = supplier;
+            return this;
+        }
+
+        public Builder fare(Double fare) {
+            this.fare = fare;
+            return this;
+        }
+
+        public Builder departureAirportCode(String departureAirportCode) {
+            this.departureAirportCode = departureAirportCode;
+            return this;
+        }
+
+        public Builder destinationAirportCode(String destinationAirportCode) {
+            this.destinationAirportCode = destinationAirportCode;
+            return this;
+        }
+
+        public Builder departureDate(String departureDate) {
+            this.departureDate = departureDate;
+            return this;
+        }
+
+        public Builder arrivalDate(String arrivalDate) {
+            this.arrivalDate = arrivalDate;
+            return this;
+        }
     }
 }

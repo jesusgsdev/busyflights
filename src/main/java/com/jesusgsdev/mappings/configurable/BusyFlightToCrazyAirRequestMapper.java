@@ -1,6 +1,6 @@
 package com.jesusgsdev.mappings.configurable;
 
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.suppliers.crazyair.dto.CrazyAirRequestDTO;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.ConfigurableMapper;
@@ -12,7 +12,7 @@ import ma.glasnost.orika.impl.ConfigurableMapper;
 public class BusyFlightToCrazyAirRequestMapper extends ConfigurableMapper{
 
    protected void configure(MapperFactory factory){
-       factory.classMap(BusyFlightsSearchDTO.class, CrazyAirRequestDTO.class)
+       factory.classMap(BusyFlightsRequestDTO.class, CrazyAirRequestDTO.class)
                .byDefault()
                .register();
    }

@@ -1,11 +1,11 @@
-package jesusgsdev.suppliers;
+package com.jesusgsdev.busyflights.services;
 
 import com.jesusgsdev.Application;
-import com.jesusgsdev.suppliers.Supplier;
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
-import com.jesusgsdev.busyflights.services.SearchFacade;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
+import com.jesusgsdev.busyflights.services.SearchSupplierService;
 import com.jesusgsdev.helpers.DateHelpers;
+import com.jesusgsdev.suppliers.Supplier;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,17 +25,17 @@ import java.util.concurrent.Future;
 @ComponentScan
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SearchFacadeTest {
+public class SearchSupplierServiceTest {
 
     @Autowired
-    SearchFacade searchFacade;
+    SearchSupplierService searchFacade;
 
     @Test
     @Ignore
     public void crazyAirSearch() throws ExecutionException, InterruptedException {
-        BusyFlightsSearchDTO busyFlightsSearchDTO = getBaseRequest();
+        BusyFlightsRequestDTO busyFlightsRequestDTO = getBaseRequest();
 
-        Future<List<BusyFlightsResponseDTO>> futureResults = searchFacade.search(busyFlightsSearchDTO, Supplier.CRAZY_AIR);
+        Future<List<BusyFlightsResponseDTO>> futureResults = searchFacade.search(busyFlightsRequestDTO, Supplier.CRAZY_AIR);
         while (!futureResults.isDone()) {
             Thread.sleep(10); //10-millisecond pause between each check
         }
@@ -49,9 +49,9 @@ public class SearchFacadeTest {
     @Test
     @Ignore
     public void toughJetSearch() throws InterruptedException, ExecutionException {
-        BusyFlightsSearchDTO busyFlightsSearchDTO = getBaseRequest();
+        BusyFlightsRequestDTO busyFlightsRequestDTO = getBaseRequest();
 
-        Future<List<BusyFlightsResponseDTO>> futureResults = searchFacade.search(busyFlightsSearchDTO, Supplier.TOUGH_JET);
+        Future<List<BusyFlightsResponseDTO>> futureResults = searchFacade.search(busyFlightsRequestDTO, Supplier.TOUGH_JET);
         while (!futureResults.isDone()) {
             Thread.sleep(10); //10-millisecond pause between each check
         }
@@ -61,15 +61,15 @@ public class SearchFacadeTest {
         Assert.notEmpty(results);
     }
 
-    private BusyFlightsSearchDTO getBaseRequest(){
-        BusyFlightsSearchDTO busyFlightsSearchDTO = new BusyFlightsSearchDTO();
-        busyFlightsSearchDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
-        busyFlightsSearchDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
-        busyFlightsSearchDTO.setOrigin("STN");
-        busyFlightsSearchDTO.setDestination("SVQ");
-        busyFlightsSearchDTO.setNumberOfPassengers(1);
+    private BusyFlightsRequestDTO getBaseRequest(){
+        BusyFlightsRequestDTO busyFlightsRequestDTO = new BusyFlightsRequestDTO();
+        busyFlightsRequestDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
+        busyFlightsRequestDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
+        busyFlightsRequestDTO.setOrigin("STN");
+        busyFlightsRequestDTO.setDestination("SVQ");
+        busyFlightsRequestDTO.setNumberOfPassengers(1);
 
-        return busyFlightsSearchDTO;
+        return busyFlightsRequestDTO;
     }
 
 }

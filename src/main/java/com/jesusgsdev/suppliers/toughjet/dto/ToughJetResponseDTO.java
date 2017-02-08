@@ -3,8 +3,10 @@ package com.jesusgsdev.suppliers.toughjet.dto;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by jesgarsal on 29/01/17.
@@ -14,7 +16,10 @@ public class ToughJetResponseDTO extends ToughJetCommonDTO implements Serializab
     @NotBlank
     private String carrier;
 
+    @Min(0)
     private Double basePrice;
+
+    @Min(0)
     private Double tax;
 
     @Range(min = 0, max = 100)
@@ -31,6 +36,8 @@ public class ToughJetResponseDTO extends ToughJetCommonDTO implements Serializab
     }
 
     private ToughJetResponseDTO(Builder builder) {
+        super();
+
         this.carrier = builder.carrier;
         this.basePrice = builder.basePrice;
         this.tax = builder.tax;
@@ -183,27 +190,19 @@ public class ToughJetResponseDTO extends ToughJetCommonDTO implements Serializab
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof ToughJetResponseDTO)) return false;
+        if (!super.equals(o)) return false;
         ToughJetResponseDTO that = (ToughJetResponseDTO) o;
-
-        if (carrier != null ? !carrier.equals(that.carrier) : that.carrier != null) return false;
-        if (basePrice != null ? !basePrice.equals(that.basePrice) : that.basePrice != null) return false;
-        if (tax != null ? !tax.equals(that.tax) : that.tax != null) return false;
-        if (discount != null ? !discount.equals(that.discount) : that.discount != null) return false;
-        if (departureAirportName != null ? !departureAirportName.equals(that.departureAirportName) : that.departureAirportName != null)
-            return false;
-        return arrivalAirportName != null ? arrivalAirportName.equals(that.arrivalAirportName) : that.arrivalAirportName == null;
+        return Objects.equals(carrier, that.carrier) &&
+                Objects.equals(basePrice, that.basePrice) &&
+                Objects.equals(tax, that.tax) &&
+                Objects.equals(discount, that.discount) &&
+                Objects.equals(departureAirportName, that.departureAirportName) &&
+                Objects.equals(arrivalAirportName, that.arrivalAirportName);
     }
 
     @Override
     public int hashCode() {
-        int result = carrier != null ? carrier.hashCode() : 0;
-        result = 31 * result + (basePrice != null ? basePrice.hashCode() : 0);
-        result = 31 * result + (tax != null ? tax.hashCode() : 0);
-        result = 31 * result + (discount != null ? discount.hashCode() : 0);
-        result = 31 * result + (departureAirportName != null ? departureAirportName.hashCode() : 0);
-        result = 31 * result + (arrivalAirportName != null ? arrivalAirportName.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), carrier, basePrice, tax, discount, departureAirportName, arrivalAirportName);
     }
 }

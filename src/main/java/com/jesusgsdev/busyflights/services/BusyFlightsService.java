@@ -2,7 +2,7 @@ package com.jesusgsdev.busyflights.services;
 
 import com.jesusgsdev.suppliers.Supplier;
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +19,13 @@ import java.util.concurrent.Future;
 public class BusyFlightsService {
 
     @Autowired
-    private SearchFacade searchFacade;
+    private SearchSupplierService engine;
 
-    public List<BusyFlightsResponseDTO> search(BusyFlightsSearchDTO busyFlightsSearchDTO) throws InterruptedException, ExecutionException {
+    public List<BusyFlightsResponseDTO> search(BusyFlightsRequestDTO busyFlightsRequestDTO) throws InterruptedException, ExecutionException {
         List<BusyFlightsResponseDTO> resultsCombined = new LinkedList<>();
 
-        Future<List<BusyFlightsResponseDTO>> crazyAirResponse = searchFacade.search(busyFlightsSearchDTO, Supplier.CRAZY_AIR);
-        Future<List<BusyFlightsResponseDTO>> toughJetResponse = searchFacade.search(busyFlightsSearchDTO, Supplier.TOUGH_JET);
+        Future<List<BusyFlightsResponseDTO>> crazyAirResponse = engine.search(busyFlightsRequestDTO, Supplier.CRAZY_AIR);
+        Future<List<BusyFlightsResponseDTO>> toughJetResponse = engine.search(busyFlightsRequestDTO, Supplier.TOUGH_JET);
 
         while (!(crazyAirResponse.isDone() && toughJetResponse.isDone())) {
             Thread.sleep(10); //10-millisecond pause between each check

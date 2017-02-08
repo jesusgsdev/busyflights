@@ -3,11 +3,12 @@ package com.jesusgsdev.suppliers.toughjet.dto;
 import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by jesgarsal on 29/01/17.
  */
-public class ToughJetCommonDTO implements Serializable{
+public abstract class ToughJetCommonDTO implements Serializable{
 
     @Range(min = 1, max = 31)
     private Integer departureDay;
@@ -81,28 +82,18 @@ public class ToughJetCommonDTO implements Serializable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof ToughJetCommonDTO)) return false;
         ToughJetCommonDTO that = (ToughJetCommonDTO) o;
-
-        if (departureDay != null ? !departureDay.equals(that.departureDay) : that.departureDay != null) return false;
-        if (departureMonth != null ? !departureMonth.equals(that.departureMonth) : that.departureMonth != null)
-            return false;
-        if (departureYear != null ? !departureYear.equals(that.departureYear) : that.departureYear != null)
-            return false;
-        if (returnDay != null ? !returnDay.equals(that.returnDay) : that.returnDay != null) return false;
-        if (returnMonth != null ? !returnMonth.equals(that.returnMonth) : that.returnMonth != null) return false;
-        return returnYear != null ? returnYear.equals(that.returnYear) : that.returnYear == null;
+        return Objects.equals(departureDay, that.departureDay) &&
+                Objects.equals(departureMonth, that.departureMonth) &&
+                Objects.equals(departureYear, that.departureYear) &&
+                Objects.equals(returnDay, that.returnDay) &&
+                Objects.equals(returnMonth, that.returnMonth) &&
+                Objects.equals(returnYear, that.returnYear);
     }
 
     @Override
     public int hashCode() {
-        int result = departureDay != null ? departureDay.hashCode() : 0;
-        result = 31 * result + (departureMonth != null ? departureMonth.hashCode() : 0);
-        result = 31 * result + (departureYear != null ? departureYear.hashCode() : 0);
-        result = 31 * result + (returnDay != null ? returnDay.hashCode() : 0);
-        result = 31 * result + (returnMonth != null ? returnMonth.hashCode() : 0);
-        result = 31 * result + (returnYear != null ? returnYear.hashCode() : 0);
-        return result;
+        return Objects.hash(departureDay, departureMonth, departureYear, returnDay, returnMonth, returnYear);
     }
 }

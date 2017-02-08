@@ -1,7 +1,7 @@
 package com.jesusgsdev.busyflights.services;
 
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.mappings.configurable.BusyFlightToCrazyAirRequestMapper;
 import com.jesusgsdev.mappings.configurable.BusyFlightToToughJetRequestMapper;
 import com.jesusgsdev.mappings.configurable.CrazyAirToBusyFlightResponseMapper;
@@ -18,18 +18,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class BusyFlightsConverterService {
 
-    public ToughJetRequestDTO getToughJetRequestDTO(BusyFlightsSearchDTO busyFlightsSearchDTO) {
+    public ToughJetRequestDTO getToughJetRequestDTO(BusyFlightsRequestDTO busyFlightsRequestDTO) {
         ToughJetRequestDTO toughJetRequestDTO = new ToughJetRequestDTO();
         BusyFlightToToughJetRequestMapper busyFlightToToughJetRequestMapper = new BusyFlightToToughJetRequestMapper();
-        busyFlightToToughJetRequestMapper.map(busyFlightsSearchDTO, toughJetRequestDTO);
+        busyFlightToToughJetRequestMapper.map(busyFlightsRequestDTO, toughJetRequestDTO);
 
         return toughJetRequestDTO;
     }
 
-    public CrazyAirRequestDTO getCrazyAirRequestDTO(BusyFlightsSearchDTO busyFlightsSearchDTO) {
+    public CrazyAirRequestDTO getCrazyAirRequestDTO(BusyFlightsRequestDTO busyFlightsRequestDTO) {
         CrazyAirRequestDTO crazyAirRequestDTO = new CrazyAirRequestDTO();
         BusyFlightToCrazyAirRequestMapper busyFlightToCrazyAirRequestMapper = new BusyFlightToCrazyAirRequestMapper();
-        busyFlightToCrazyAirRequestMapper.map(busyFlightsSearchDTO, crazyAirRequestDTO);
+        busyFlightToCrazyAirRequestMapper.map(busyFlightsRequestDTO, crazyAirRequestDTO);
 
         return crazyAirRequestDTO;
     }

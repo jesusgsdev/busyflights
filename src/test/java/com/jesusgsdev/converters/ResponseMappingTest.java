@@ -1,11 +1,11 @@
-package jesusgsdev.converters;
+package com.jesusgsdev.converters;
 
 import com.jesusgsdev.Application;
-import com.jesusgsdev.suppliers.Supplier;
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
 import com.jesusgsdev.helpers.DateHelpers;
 import com.jesusgsdev.mappings.configurable.CrazyAirToBusyFlightResponseMapper;
 import com.jesusgsdev.mappings.configurable.ToughJetToBusyFlightResponseMapper;
+import com.jesusgsdev.suppliers.Supplier;
 import com.jesusgsdev.suppliers.crazyair.dto.CrazyAirResponseDTO;
 import com.jesusgsdev.suppliers.toughjet.dto.ToughJetResponseDTO;
 import org.junit.Test;

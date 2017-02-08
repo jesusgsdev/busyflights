@@ -1,6 +1,6 @@
 package com.jesusgsdev.mappings.configurable;
 
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.mappings.custom.BusyFlightToToughJetCustomMapper;
 import com.jesusgsdev.suppliers.toughjet.dto.ToughJetRequestDTO;
 import ma.glasnost.orika.MapperFactory;
@@ -13,7 +13,7 @@ import ma.glasnost.orika.impl.ConfigurableMapper;
 public class BusyFlightToToughJetRequestMapper extends ConfigurableMapper{
 
     protected void configure(MapperFactory factory){
-        factory.classMap(BusyFlightsSearchDTO.class, ToughJetRequestDTO.class)
+        factory.classMap(BusyFlightsRequestDTO.class, ToughJetRequestDTO.class)
                .field("origin", "from")
                .field("destination", "to")
                .field("numberOfPassengers", "numberOfAdults")

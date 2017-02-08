@@ -1,7 +1,7 @@
 package com.jesusgsdev.busyflights.controller;
 
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.busyflights.services.BusyFlightsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -20,7 +20,7 @@ public class BusyFlightsController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST, produces = {"application/json"})
     @ResponseBody
-    public List<BusyFlightsResponseDTO> search(@Valid @RequestBody final BusyFlightsSearchDTO searchDTO, BindingResult result) throws ExecutionException, InterruptedException {
+    public List<BusyFlightsResponseDTO> search(@Valid @RequestBody final BusyFlightsRequestDTO searchDTO, BindingResult result) throws ExecutionException, InterruptedException {
         if (result.hasErrors()) {
             return Collections.emptyList();
         }

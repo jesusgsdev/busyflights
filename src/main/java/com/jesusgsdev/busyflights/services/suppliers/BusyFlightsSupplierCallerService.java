@@ -1,7 +1,7 @@
 package com.jesusgsdev.busyflights.services.suppliers;
 
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -11,6 +11,6 @@ import java.util.concurrent.Future;
  */
 public interface BusyFlightsSupplierCallerService {
 
-    Future<List<BusyFlightsResponseDTO>> search(BusyFlightsSearchDTO busyFlightsSearchDTO) throws InterruptedException;
+    Future<List<BusyFlightsResponseDTO>> search(BusyFlightsRequestDTO busyFlightsRequestDTO) throws InterruptedException;
 
 }

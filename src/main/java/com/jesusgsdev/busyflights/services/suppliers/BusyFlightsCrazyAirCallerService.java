@@ -1,7 +1,7 @@
 package com.jesusgsdev.busyflights.services.suppliers;
 
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.busyflights.services.BusyFlightsConverterService;
 import com.jesusgsdev.suppliers.crazyair.dto.CrazyAirRequestDTO;
 import com.jesusgsdev.suppliers.crazyair.dto.CrazyAirResponseDTO;
@@ -31,8 +31,8 @@ public class BusyFlightsCrazyAirCallerService implements BusyFlightsSupplierCall
 
     @Override
     @Async
-    public Future<List<BusyFlightsResponseDTO>> search(BusyFlightsSearchDTO busyFlightsSearchDTO) throws InterruptedException {
-        CrazyAirRequestDTO crazyAirRequestDTO = busyFlightsConverterService.getCrazyAirRequestDTO(busyFlightsSearchDTO);
+    public Future<List<BusyFlightsResponseDTO>> search(BusyFlightsRequestDTO busyFlightsRequestDTO) throws InterruptedException {
+        CrazyAirRequestDTO crazyAirRequestDTO = busyFlightsConverterService.getCrazyAirRequestDTO(busyFlightsRequestDTO);
 
         final RestTemplate restTemplate = new RestTemplate();
 

@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Created by jesgarsal on 29/01/17.
@@ -125,25 +126,17 @@ public class CrazyAirRequestDTO implements Serializable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof CrazyAirRequestDTO)) return false;
         CrazyAirRequestDTO that = (CrazyAirRequestDTO) o;
-
-        if (origin != null ? !origin.equals(that.origin) : that.origin != null) return false;
-        if (destination != null ? !destination.equals(that.destination) : that.destination != null) return false;
-        if (departureDate != null ? !departureDate.equals(that.departureDate) : that.departureDate != null)
-            return false;
-        if (returnDate != null ? !returnDate.equals(that.returnDate) : that.returnDate != null) return false;
-        return numberOfPassengers != null ? numberOfPassengers.equals(that.numberOfPassengers) : that.numberOfPassengers == null;
+        return Objects.equals(origin, that.origin) &&
+                Objects.equals(destination, that.destination) &&
+                Objects.equals(departureDate, that.departureDate) &&
+                Objects.equals(returnDate, that.returnDate) &&
+                Objects.equals(numberOfPassengers, that.numberOfPassengers);
     }
 
     @Override
     public int hashCode() {
-        int result = origin != null ? origin.hashCode() : 0;
-        result = 31 * result + (destination != null ? destination.hashCode() : 0);
-        result = 31 * result + (departureDate != null ? departureDate.hashCode() : 0);
-        result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
-        result = 31 * result + (numberOfPassengers != null ? numberOfPassengers.hashCode() : 0);
-        return result;
+        return Objects.hash(origin, destination, departureDate, returnDate, numberOfPassengers);
     }
 }

@@ -1,6 +1,6 @@
 package com.jesusgsdev.aspects;
 
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -16,10 +16,10 @@ public class BusyFlightLogger {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BusyFlightLogger.class);
 
-    @Before("execution(* com.jesusgsdev.busyflights.services.BusyFlightsService.search(..)) && args(busyFlightsSearchDTO)")
-    public void beforeSearch(BusyFlightsSearchDTO busyFlightsSearchDTO) {
+    @Before("execution(* com.jesusgsdev.busyflights.services.BusyFlightsService.search(..)) && args(busyFlightsRequestDTO)")
+    public void beforeSearch(BusyFlightsRequestDTO busyFlightsRequestDTO) {
         LOGGER.info("Received a request for searching:");
-        LOGGER.info(busyFlightsSearchDTO.toString());
+        LOGGER.info(busyFlightsRequestDTO.toString());
     }
 
     @AfterReturning(pointcut ="execution(* com.jesusgsdev.busyflights.services.BusyFlightsService.search(..))", returning ="result")

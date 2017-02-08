@@ -1,7 +1,7 @@
 package com.jesusgsdev.busyflights.services.suppliers;
 
 import com.jesusgsdev.busyflights.dto.BusyFlightsResponseDTO;
-import com.jesusgsdev.busyflights.dto.BusyFlightsSearchDTO;
+import com.jesusgsdev.busyflights.dto.BusyFlightsRequestDTO;
 import com.jesusgsdev.busyflights.services.BusyFlightsConverterService;
 import com.jesusgsdev.suppliers.toughjet.dto.ToughJetRequestDTO;
 import com.jesusgsdev.suppliers.toughjet.dto.ToughJetResponseDTO;
@@ -28,8 +28,8 @@ public class BusyFlightsToughJetCallerService implements BusyFlightsSupplierCall
     @Autowired
     private BusyFlightsConverterService busyFlightsConverterService;
 
-    public Future<List<BusyFlightsResponseDTO>> search(BusyFlightsSearchDTO busyFlightsSearchDTO) throws InterruptedException {
-        ToughJetRequestDTO toughJetRequestDTO = busyFlightsConverterService.getToughJetRequestDTO(busyFlightsSearchDTO);
+    public Future<List<BusyFlightsResponseDTO>> search(BusyFlightsRequestDTO busyFlightsRequestDTO) throws InterruptedException {
+        ToughJetRequestDTO toughJetRequestDTO = busyFlightsConverterService.getToughJetRequestDTO(busyFlightsRequestDTO);
 
         final RestTemplate restTemplate = new RestTemplate();
 
