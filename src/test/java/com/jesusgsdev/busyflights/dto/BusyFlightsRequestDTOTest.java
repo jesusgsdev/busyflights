@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotEquals;
 /**
  * Created by jesgarsal on 08/02/17.
  */
-public class BusyFlightsDTOTest {
+public class BusyFlightsRequestDTOTest {
 
     private List<BusyFlightsRequestDTO> dtos;
 

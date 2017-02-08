@@ -42,21 +42,16 @@ public class BusyFlightsConverterServiceTest {
     @Autowired
     private BusyFlightsConverterService busyFlightsConverterService;
 
+    private BusyFlightsRequestDTO busyFlightsRequestDTO;
 
     @Before
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
+        setUpRequest();
     }
 
     @Test
     public void crazyAirSearchTest() throws InterruptedException, ExecutionException {
-        BusyFlightsRequestDTO busyFlightsRequestDTO = new BusyFlightsRequestDTO();
-        busyFlightsRequestDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
-        busyFlightsRequestDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
-        busyFlightsRequestDTO.setOrigin("STN");
-        busyFlightsRequestDTO.setDestination("SVQ");
-        busyFlightsRequestDTO.setNumberOfPassengers(1);
-
         CrazyAirRequestDTO crazyAirRequestDTO = busyFlightsConverterService.getCrazyAirRequestDTO(busyFlightsRequestDTO);
 
         CrazyAirResponseDTO[] crazyAirResponse = template.postForObject(base + "crazy-air/search", crazyAirRequestDTO, CrazyAirResponseDTO[].class);
@@ -67,6 +62,15 @@ public class BusyFlightsConverterServiceTest {
 
         Assert.notNull(busyFlightsResponseDTO);
         Assert.notEmpty(busyFlightsResponseDTO);
+    }
+
+    private void setUpRequest() {
+        busyFlightsRequestDTO = new BusyFlightsRequestDTO();
+        busyFlightsRequestDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
+        busyFlightsRequestDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
+        busyFlightsRequestDTO.setOrigin("STN");
+        busyFlightsRequestDTO.setDestination("SVQ");
+        busyFlightsRequestDTO.setNumberOfPassengers(1);
     }
 
 }

@@ -22,7 +22,8 @@ public class CrazyAirResponseDTOTest {
         dtos = new LinkedList<>();
 
         CrazyAirResponseDTO crazyAirResponseDTO =
-                CrazyAirResponseDTO.newCrazyAirResponseDTO().airline("Ryanair")
+                CrazyAirResponseDTO.newCrazyAirResponseDTO()
+                        .airline("Ryanair")
                         .departureAirportCode("STN")
                         .destinationAirportCode("SVQ")
                         .departureDate(DateHelpers.getStringDateISO8601(2018,1,1))
