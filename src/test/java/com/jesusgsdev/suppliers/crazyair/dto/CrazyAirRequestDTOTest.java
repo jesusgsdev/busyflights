@@ -15,39 +15,16 @@ import static org.junit.Assert.assertNotEquals;
  */
 public class CrazyAirRequestDTOTest {
 
+    public static final String STN = "STN";
+    public static final String SVQ = "SVQ";
+    public static final int YEAR_2018 = 2018;
+    public static final int JANUARY = 1;
+
     private List<CrazyAirRequestDTO> dtos;
 
     @Before
     public void before() throws Exception{
-        dtos = new LinkedList<>();
-
-        CrazyAirRequestDTO crazyAirRequestDTO =
-                CrazyAirRequestDTO.newCrazyAirRequestDTO()
-                    .numberOfPassengers(4)
-                    .origin("STN")
-                    .destination("SVQ")
-                    .departureDate(DateHelpers.getStringDateISO8601(2018,1,1))
-                    .returnDate(DateHelpers.getStringDateISO8601(2018,1,9))
-                .build();
-        dtos.add(crazyAirRequestDTO);
-
-        crazyAirRequestDTO = CrazyAirRequestDTO.newCrazyAirRequestDTO()
-                    .numberOfPassengers(4)
-                    .origin("STN")
-                    .destination("SVQ")
-                    .departureDate(DateHelpers.getStringDateISO8601(2018,1,1))
-                    .returnDate(DateHelpers.getStringDateISO8601(2018,1,9))
-                .build();
-        dtos.add(crazyAirRequestDTO);
-
-        crazyAirRequestDTO = CrazyAirRequestDTO.newCrazyAirRequestDTO()
-                    .numberOfPassengers(5)
-                    .origin("STN")
-                    .destination("SVQ")
-                    .departureDate(DateHelpers.getStringDateISO8601(2018,1,1))
-                    .returnDate(DateHelpers.getStringDateISO8601(2018,1,9))
-                .build();
-        dtos.add(crazyAirRequestDTO);
+        setUpDTOs();
     }
 
     @Test
@@ -55,10 +32,10 @@ public class CrazyAirRequestDTOTest {
         CrazyAirRequestDTO crazyAirRequestDTO = dtos.get(0);
 
         assertEquals(crazyAirRequestDTO.getNumberOfPassengers(), new Integer(4));
-        assertEquals(crazyAirRequestDTO.getOrigin(), "STN");
-        assertEquals(crazyAirRequestDTO.getDestination(), "SVQ");
-        assertEquals(crazyAirRequestDTO.getDepartureDate(), DateHelpers.getStringDateISO8601(2018,1,1));
-        assertEquals(crazyAirRequestDTO.getReturnDate(), DateHelpers.getStringDateISO8601(2018,1,9));
+        assertEquals(crazyAirRequestDTO.getOrigin(), STN);
+        assertEquals(crazyAirRequestDTO.getDestination(), SVQ);
+        assertEquals(crazyAirRequestDTO.getDepartureDate(), DateHelpers.getStringDateISO8601(YEAR_2018,JANUARY,1));
+        assertEquals(crazyAirRequestDTO.getReturnDate(), DateHelpers.getStringDateISO8601(YEAR_2018,JANUARY,9));
     }
 
     @Test
@@ -84,5 +61,38 @@ public class CrazyAirRequestDTOTest {
 
         assertNotEquals(crazyAirRequestDTOA, crazyAirRequestDTOB);
     }
-    
+
+    private void setUpDTOs() {
+        dtos = new LinkedList<>();
+
+        CrazyAirRequestDTO crazyAirRequestDTO =
+                CrazyAirRequestDTO.newCrazyAirRequestDTO()
+                        .numberOfPassengers(4)
+                        .origin(STN)
+                        .destination(SVQ)
+                        .departureDate(DateHelpers.getStringDateISO8601(YEAR_2018, JANUARY,1))
+                        .returnDate(DateHelpers.getStringDateISO8601(YEAR_2018,JANUARY,9))
+                        .build();
+        dtos.add(crazyAirRequestDTO);
+
+        crazyAirRequestDTO = CrazyAirRequestDTO.newCrazyAirRequestDTO()
+                .numberOfPassengers(4)
+                .origin(STN)
+                .destination(SVQ)
+                .departureDate(DateHelpers.getStringDateISO8601(YEAR_2018,JANUARY,1))
+                .returnDate(DateHelpers.getStringDateISO8601(YEAR_2018,JANUARY,9))
+                .build();
+        dtos.add(crazyAirRequestDTO);
+
+        crazyAirRequestDTO = CrazyAirRequestDTO.newCrazyAirRequestDTO()
+                .numberOfPassengers(5)
+                .origin(STN)
+                .destination(SVQ)
+                .departureDate(DateHelpers.getStringDateISO8601(YEAR_2018,JANUARY,1))
+                .returnDate(DateHelpers.getStringDateISO8601(YEAR_2018,JANUARY,9))
+                .build();
+        dtos.add(crazyAirRequestDTO);
+    }
+
+
 }

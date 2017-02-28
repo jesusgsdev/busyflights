@@ -8,6 +8,7 @@ import com.jesusgsdev.busyflights.services.suppliers.BusyFlightsCrazyAirCallerSe
 import com.jesusgsdev.helpers.DateHelpers;
 import com.jesusgsdev.suppliers.crazyair.dto.CrazyAirRequestDTO;
 import com.jesusgsdev.suppliers.crazyair.dto.CrazyAirResponseDTO;
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -27,6 +29,10 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
+
 /**
  * Created by jesgarsal on 02/02/17.
  */
@@ -35,65 +41,34 @@ import java.util.stream.Stream;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CrazyAirServiceTest {
 
-    @LocalServerPort
-    private int port;
-
-    private URL base;
-
     @Autowired
-    private TestRestTemplate template;
+    private CrazyAirService crazyAirService;
 
-    @Autowired
-    private BusyFlightsCrazyAirCallerService busyFlightsCrazyAirCallerService;
-
-    @Autowired
-    private BusyFlightsConverterService busyFlightsConverterService;
-
+    private CrazyAirRequestDTO crazyAirRequestDTO;
 
     @Before
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/");
+        setUpCrazyAirRequest();
     }
 
     @Test
     public void crazyAirSearchTest() throws InterruptedException, ExecutionException {
-        BusyFlightsRequestDTO busyFlightsRequestDTO = new BusyFlightsRequestDTO();
-        busyFlightsRequestDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
-        busyFlightsRequestDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
-        busyFlightsRequestDTO.setOrigin("STN");
-        busyFlightsRequestDTO.setDestination("SVQ");
-        busyFlightsRequestDTO.setNumberOfPassengers(1);
+        List<CrazyAirResponseDTO> crazyAirResponse = crazyAirService.search(crazyAirRequestDTO);
 
-        CrazyAirRequestDTO crazyAirRequestDTO = busyFlightsConverterService.getCrazyAirRequestDTO(busyFlightsRequestDTO);
-
-        CrazyAirResponseDTO[] crazyAirResponse = template.postForObject(base + "crazy-air/search", crazyAirRequestDTO, CrazyAirResponseDTO[].class);
-
-        List<BusyFlightsResponseDTO> busyFlightsResponseDTO = Stream.of(crazyAirResponse)
-                .map(r -> busyFlightsConverterService.getBusyFlightResponseDTO(r))
-                .collect(Collectors.toList());
-
-        Assert.notNull(busyFlightsResponseDTO);
-        Assert.notEmpty(busyFlightsResponseDTO);
+        Assert.notNull(crazyAirResponse);
+        assertThat(crazyAirResponse, not(IsEmptyCollection.empty()));
+        assertThat(crazyAirResponse, hasSize(2));
     }
 
-    @Test
-    @Ignore
-    public void crazyAirSearch2() throws InterruptedException, ExecutionException {
-        BusyFlightsRequestDTO busyFlightsRequestDTO = new BusyFlightsRequestDTO();
-        busyFlightsRequestDTO.setDepartureDate(DateHelpers.getStringDateISO8601(2018,1,1));
-        busyFlightsRequestDTO.setReturnDate(DateHelpers.getStringDateISO8601(2018,1,9));
-        busyFlightsRequestDTO.setOrigin("STN");
-        busyFlightsRequestDTO.setDestination("SVQ");
-        busyFlightsRequestDTO.setNumberOfPassengers(1);
-
-        Future<List<BusyFlightsResponseDTO>> futureResults = busyFlightsCrazyAirCallerService.search(busyFlightsRequestDTO);
-        while (!futureResults.isDone()) {
-            Thread.sleep(10); //10-millisecond pause between each check
-        }
-        List<BusyFlightsResponseDTO> results = futureResults.get();
-
-        Assert.notNull(results);
-        Assert.notEmpty(results);
+    private void setUpCrazyAirRequest() {
+        crazyAirRequestDTO =
+                CrazyAirRequestDTO.newCrazyAirRequestDTO()
+                        .numberOfPassengers(4)
+                        .origin("STN")
+                        .destination("SVQ")
+                        .departureDate(DateHelpers.getStringDateISO8601(2018,1,1))
+                        .returnDate(DateHelpers.getStringDateISO8601(2018,1,9))
+                        .build();
     }
 
 }
