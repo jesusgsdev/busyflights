@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/jesusgsdev/busyflights.svg?branch=master)](https://travis-ci.org/jesusgsdev/busyflights)
 # BusyFlights
 ### Problem to be solved
 #### Background:
