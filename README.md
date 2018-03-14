@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/jesusgsdev/busyflights.svg?branch=master)](https://travis-ci.org/jesusgsdev/busyflights)
+[![codecov](https://codecov.io/gh/jesusgsdev/busyflights/branch/master/graph/badge.svg)](https://codecov.io/gh/jesusgsdev/busyflights)
 # BusyFlights
 ### Problem to be solved
 #### Background:
